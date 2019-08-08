@@ -24,4 +24,4 @@ def load():
     Family(name='Bulat',city='Philadephia',state='New York').put()
     Family(name='Pavlov',city='Philadephia',state='New York').put()
     Family(name='Stepanov',city='Philadephia',state='New York').put()
-    Family(name='Morovich',city=''Philadephia,state='New York').put()
+    Family(name='Morovich',city='Philadephia',state='New York').put()
