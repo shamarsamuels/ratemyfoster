@@ -4,12 +4,23 @@
         <title>Welcome</title>
         <link rel='stylesheet' href="/stylesheets/style.css">
         <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Arvo:700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Bungee+Shade&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="text ack">R.M.F.F</div>
         <div class="text name">Rate My Foster Family</div>
-        <form>
-            <input class='text search'type="text" placeholder="Search my family">
+        <form id='search_form'>
+            <input id='search' class='text' type="text" placeholder="Search my family">
         </form>
+        <div class='search_container'>
+            {% for i in [1,2,3,4,5,6] %}
+            <div class='search_result'>
+               
+            </div>
+            {% endfor %}
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/scripts/script.js"></script>
     </body>
 </html>

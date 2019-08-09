@@ -4,17 +4,20 @@
 
 .ack {
     text-align: center;
-    font-size: 75px;
-    font-family: 'Monoton', cursive;
-    margin-top: 10%;
+    font-size: 100px;
+    font-family: 'Bungee Shade', cursive;
+    margin-top: 160px;
+    color: black;
+    height: 200px;
 }
 
 .name {
     text-align: center;
     font-size: 50px;
+    font-family: 'Arvo', serif;
 }
 
-.search {
+#search {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -29,6 +32,28 @@
     text-emphasis: none;
 }
 
+.search_container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: 350px;
+    overflow-y: scroll;
+    border-radius: 5px;
+}
+
+.search_container::-webkit-scrollbar { 
+    display: none; 
+}
+
+.search_result {
+    background-color: white;
+    height: 100px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    margin: 5px;
+}
 body {
-    background-color: aquamarine;
+    background-color: rgb(87, 226, 245);
 }
