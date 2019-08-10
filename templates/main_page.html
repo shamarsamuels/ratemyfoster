@@ -6,21 +6,26 @@
         <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Arvo:700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <meta id="families" data-families="{{ families }}">
     </head>
     <body>
         <div class="text ack">R.M.F.F</div>
         <div class="text name">Rate My Foster Family</div>
-        <form id='search_form'>
-            <input id='search' class='text' type="text" placeholder="Search my family">
+        <form id='search_form' method="post" action="/">
+            <input id='search' class='text' type="text" name='search' placeholder="Search my family">
         </form>
-        <div class='search_container'>
-            {% for i in [1,2,3,4,5,6] %}
-            <div class='search_result'>
-               
-            </div>
-            {% endfor %}
+        <div id='search_container'>
+            
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="/scripts/script.js"></script>
+        <script>
+            const search = document.getElementById('search')
+            const search_form = document.getElementById('search_form')
+
+            search.addEventListener('input' , el => {
+                
+            })
+        </script>
     </body>
 </html>
