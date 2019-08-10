@@ -4,11 +4,11 @@
 
 .ack {
     text-align: center;
-    font-size: 100px;
+    font-size: 150px;
     font-family: 'Bungee Shade', cursive;
-    margin-top: 160px;
+    margin-top: 110px;
     color: black;
-    height: 200px;
+    height: 280px;
 }
 
 .name {
@@ -26,10 +26,12 @@
     margin-top: 1%;
     font-size: 25px;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 5px;
     border-style: solid;
     text-decoration: none;
     text-emphasis: none;
+    border-width: 1px;
+    border-color: grey;
 }
 
 #search:focus{
@@ -55,9 +57,10 @@
     height: 100px;
     border-radius: 5px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     margin: 5px;
+    border-color: grey;
 }
 body {
-    background-color: rgb(87, 226, 245);
+    background-color: rgb(255, 255, 255);
 }

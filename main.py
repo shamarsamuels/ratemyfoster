@@ -19,12 +19,29 @@ class MainPage(webapp2.RequestHandler):
         families = Family.query()
         families_list = []
         for family in families:
-            families_list.append({'name': family.name})
+            families_list.append({'name': family.name, 'id': family.key.id()})
 
         families_list = json.dumps(families_list)
         print(families_list)
         self.response.write(main_page_template.render({'families': families_list}))
 
+    def post(self):
+        family_id = self.request.get('id')
+        if family_id:
+            self.redirect('/family?id=' + family_id)
+        else:
+            self.redirect('/')
+
+
+class FamilyPage(webapp2.RequestHandler):
+    def get(self):
+        family_id = self.request.get('id')
+        if family_id:
+            if family_id.isdigit():
+                family_id = int(family_id)
+                print(family_id)
+                return
+        self.redirect('/')
 
 
 class Load(webapp2.RequestHandler):
@@ -40,5 +57,6 @@ class Load(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/load', Load)
+    ('/load', Load),
+    ('/family', FamilyPage)
 ], debug=True)
