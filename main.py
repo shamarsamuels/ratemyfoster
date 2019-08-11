@@ -13,16 +13,15 @@ the_jinja_env = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+families = Family.query()
+families_list = []
+for family in families:
+    families_list.append({'name': family.name, 'id': family.key.id()})
+families_list = json.dumps(families_list)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         main_page_template = the_jinja_env.get_template('templates/main_page.html')
-        families = Family.query()
-        families_list = []
-        for family in families:
-            families_list.append({'name': family.name, 'id': family.key.id()})
-
-        families_list = json.dumps(families_list)
-        print(families_list)
         self.response.write(main_page_template.render({'families': families_list}))
 
     def post(self):
@@ -49,11 +48,6 @@ class Load(webapp2.RequestHandler):
         load()
         self.redirect('/')
 
-class Load(webapp2.RequestHandler):
-    def get(self):
-        load()
-        self.response.write('Loaded')
-        self.redirect('/')
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),

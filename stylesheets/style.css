@@ -4,17 +4,19 @@
 
 .ack {
     text-align: center;
-    font-size: 150px;
+    font-size: 140px;
     font-family: 'Bungee Shade', cursive;
     margin-top: 110px;
     color: black;
-    height: 280px;
+    height: 260px;
+    cursor: default;
 }
 
 .name {
     text-align: center;
     font-size: 50px;
     font-family: 'Arvo', serif;
+    cursor: default;
 }
 
 #search {
@@ -32,6 +34,7 @@
     text-emphasis: none;
     border-width: 1px;
     border-color: grey;
+    position:relative
 }
 
 #search:focus{
@@ -63,4 +66,21 @@
 }
 body {
     background-color: rgb(255, 255, 255);
+}
+
+
+.no_result_text{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 25px;
+    font-family: 'Arvo', serif;
+}
+
+.family_name {
+    width: 25%;
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Arvo', serif;
+    margin-left: 20px;
+    margin-top: 30px;
 }

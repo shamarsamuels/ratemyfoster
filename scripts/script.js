@@ -10,8 +10,7 @@ $(document).ready(() => {
                 if(shortened_name == search) {
                     let new_div = `
                         <div id='result_${index}' class="search_result">
-                            <div class='text'>${family.name}</div>
-                            <div class='text'>${family.id}</div>
+                            <div class='text family_name'>${family.name}</div>
                             <form id='result_${index}_form' method='post' action='/'>
                                 <input type='hidden' name='id' value='${family.id}'>
                             </form>
@@ -27,8 +26,8 @@ $(document).ready(() => {
             })
             if (added < 1){
                 let new_div = `
-                    <div class="search_result">
-                        <div id='text'> No Result Found </div>
+                    <div class="search_result no_result">
+                        <div class='text no_result_text'> No Results Found </div>
                     </div>
                 `
                 $('#search_container').append(new_div)
