@@ -14,7 +14,6 @@ the_jinja_env = jinja2.Environment(
     autoescape=True)
 
 families = Family.query()
-families_list = []
 states = {}
 
 for family in families:
@@ -24,16 +23,12 @@ for family in families:
     else:
         states[family.state] = [family.city]
 
-    families_list.append({'name': family.name, 'id': family.key.id()})
-
-
-families_list = json.dumps(families_list)
 states = json.dumps(states)
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         main_page_template = the_jinja_env.get_template('templates/main_page.html')
-        self.response.write(main_page_template.render({'families': families_list, 'states':states}))
+        self.response.write(main_page_template.render({'states':states}))
 
     def post(self):
         family_id = self.request.get('id')
@@ -61,7 +56,6 @@ class Load(webapp2.RequestHandler):
         load()
 
         families = Family.query()
-        families_list = []
         states = {}
 
         for family in families:
@@ -71,29 +65,35 @@ class Load(webapp2.RequestHandler):
             else:
                 states[family.state] = [family.city]
 
-            families_list.append({'name': family.name, 'id': family.key.id()})
-
-
-        families_list = json.dumps(families_list)
         states = json.dumps(states)
 
         self.redirect('/')
 
-class Input(webapp2.RequestHandler):
+class InputHandler(webapp2.RequestHandler):
     def post(self):
-        txtinput = self.request.get('name')
-
+        input = self.request.get('input')
         # Create an array
-        array = {'text': 'Hello ' + txtinput}
+        data = {
+            'response':False,
+        }
+
+        families_query = Family.query()
+        families_search = families_query.filter(Family.name_lower == 'brown').fetch()
+        families = []
+
+        for family in families_search:
+            families.append(family)
+
+        data['response'] = families
 
         # Output the JSON
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps(array))
+        self.response.out.write(json.dumps(data))
 
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/load', Load),
     ('/family', FamilyPage),
-    ('/test', Input)
+    ('/input', InputHandler)
 ], debug=True)

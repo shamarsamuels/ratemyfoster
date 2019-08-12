@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    const families = $('#families').data('families')
     const states = $('#states').data('states')
 
     const states_keys = Object.keys(states)
@@ -38,43 +37,64 @@ $(document).ready(() => {
         $("#search_container").empty();
         let search = el.target.value.toLowerCase()
         if(search){
-            let added = 0
-            let results = families.map((family, index) => {
-                let shortened_name = family.name.substring(0, search.length).toLowerCase()
-                if(shortened_name == search) {
-                    let new_div = `
-                        <div id='result_${index}' class="search_result">
-                            <div class='text family_name'>${family.name}</div>
-                            <form id='result_${index}_form' method='post' action='/'>
-                                <input type='hidden' name='id' value='${family.id}'>
-                            </form>
-                        </div>
-                    `
-                    $('#search_container').append(new_div)
-                    $(`#result_${index}`).on('click', () => {
-                        $(`#result_${index}_form`).submit()
-                    })
-                    added++
-                    return family
+            $.ajax({
+                type: "POST",
+                url: "/input",
+                data: 'input=' + search,
+                success: (data) => {
+                    if(data.response){
+                      data.response.forEach((family, index) => {
+                        let new_div = `
+                            <div id='result_${index}' class="search_result">
+                                <div class='text family_name'>${family.name}</div>
+                                <form id='result_${index}_form' method='post' action='/'>
+                                    <input type='hidden' name='id' value='${family.id}'>
+                                </form>
+                            </div>
+                        `
+                        $('#search_container').append(new_div)
+                        $(`#result_${index}`).on('click', () => {
+                            $(`#result_${index}_form`).submit()
+                        })
+                      })
+                    } else {
+                      let new_div = `
+                          <div class="search_result no_result">
+                              <div class='text no_result_text'> No Results Found </div>
+                          </div>
+                      `
+                      $('#search_container').append(new_div)
+                    }
                 }
-            })
-            if (added < 1){
-                let new_div = `
-                    <div class="search_result no_result">
-                        <div class='text no_result_text'> No Results Found </div>
-                    </div>
-                `
-                $('#search_container').append(new_div)
-            }
+            });
+            // let added = 0
+            // let results = families.map((family, index) => {
+            //     let shortened_name = family.name.substring(0, search.length).toLowerCase()
+            //     if(shortened_name == search) {
+            //         let new_div = `
+            //             <div id='result_${index}' class="search_result">
+            //                 <div class='text family_name'>${family.name}</div>
+            //                 <form id='result_${index}_form' method='post' action='/'>
+            //                     <input type='hidden' name='id' value='${family.id}'>
+            //                 </form>
+            //             </div>
+            //         `
+            //         $('#search_container').append(new_div)
+            //         $(`#result_${index}`).on('click', () => {
+            //             $(`#result_${index}_form`).submit()
+            //         })
+            //         added++
+            //         return family
+            //     }
+            // })
+            // if (added < 1){
+            //     let new_div = `
+            //         <div class="search_result no_result">
+            //             <div class='text no_result_text'> No Results Found </div>
+            //         </div>
+            //     `
+            //     $('#search_container').append(new_div)
+            // }
         }
     })
-
-    $.ajax({
-        type: "POST",
-        url: "/test",
-        data: 'name=Shamar',
-        success: function(data) {
-            console.log(data.text);
-        }
-    });
 })
