@@ -8,12 +8,18 @@
         <link href="https://fonts.googleapis.com/css?family=Bungee+Shade&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <meta id="families" data-families="{{ families }}">
+        <meta id="states" data-states="{{ states }}">
     </head>
     <body>
         <div class="text ack">R.M.F.F</div>
         <div class="text name">Rate My Foster Family</div>
         <input id='search' class='text' type="text" name='search' placeholder="Search my family">
-        
+        <select id='states_selection' class='selection'>
+          <option>State</option>
+        </select>
+        <select class='selection'>
+          <option>City</option>
+        </select>
         <div id='search_container'>
 
         </div>

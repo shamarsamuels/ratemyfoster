@@ -15,14 +15,25 @@ the_jinja_env = jinja2.Environment(
 
 families = Family.query()
 families_list = []
+states = {}
+
 for family in families:
+    if family.state in states:
+        if not family.city in states[family.state]:
+            states[family.state].append(family.city)
+    else:
+        states[family.state] = [family.city]
+
     families_list.append({'name': family.name, 'id': family.key.id()})
+
+
 families_list = json.dumps(families_list)
+states = json.dumps(states)
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         main_page_template = the_jinja_env.get_template('templates/main_page.html')
-        self.response.write(main_page_template.render({'families': families_list}))
+        self.response.write(main_page_template.render({'families': families_list, 'states':states}))
 
     def post(self):
         family_id = self.request.get('id')
@@ -49,9 +60,19 @@ class Load(webapp2.RequestHandler):
 
         families = Family.query()
         families_list = []
+        states = {}
+
         for family in families:
+            if family.state in states:
+                family.state.append(family.city)
+            else:
+                states[family.state] = [family.city]
+
             families_list.append({'name': family.name, 'id': family.key.id()})
+
+
         families_list = json.dumps(families_list)
+        states = json.dumps(states)
 
         self.redirect('/')
 

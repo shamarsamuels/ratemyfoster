@@ -1,5 +1,18 @@
 $(document).ready(() => {
     const families = $('#families').data('families')
+    const states = $('#states').data('states')
+
+    const states_keys = Object.keys(states)
+    states_keys.forEach(el => {
+      let new_option = `
+        <option value='${el}'>
+          ${el}
+        </option>
+      `
+      $('#states_selection').append(new_option)
+    })
+
+    //$('#states_selection').append('')
     $('#search').on('input', el => {
         $("#search_container").empty();
         let search = el.target.value.toLowerCase()
@@ -35,6 +48,3 @@ $(document).ready(() => {
         }
     })
 })
-
-
-
