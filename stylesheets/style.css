@@ -64,10 +64,16 @@
     margin: 5px;
     border-color: grey;
 }
+
+.search_result:hover{
+  border-color: #03b6fc;
+}
+
 body {
     background-color: rgb(255, 255, 255);
     background: url('/images/family.jpg');
-    background-size: cover;
+    background-size: 110%;
+    background-position: center 30%;
 }
 
 body::before {
