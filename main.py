@@ -64,7 +64,8 @@ class Load(webapp2.RequestHandler):
 
         for family in families:
             if family.state in states:
-                family.state.append(family.city)
+                if not family.city in states[family.state]:
+                    states[family.state].append(family.city)
             else:
                 states[family.state] = [family.city]
 
