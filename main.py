@@ -49,8 +49,10 @@ class FamilyPage(webapp2.RequestHandler):
         if family_id:
             if family_id.isdigit():
                 family_id = int(family_id)
-                print(family_id)
+                family_page_template = the_jinja_env.get_template('templates/family_page.html')
+                self.response.write(family_page_template.render({'name':'Samuels'}))
                 return
+
         self.redirect('/')
 
 
@@ -77,9 +79,21 @@ class Load(webapp2.RequestHandler):
 
         self.redirect('/')
 
+class Input(webapp2.RequestHandler):
+    def post(self):
+        txtinput = self.request.get('name')
+
+        # Create an array
+        array = {'text': 'Hello ' + txtinput}
+
+        # Output the JSON
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.out.write(json.dumps(array))
+
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/load', Load),
-    ('/family', FamilyPage)
+    ('/family', FamilyPage),
+    ('/test', Input)
 ], debug=True)

@@ -68,4 +68,13 @@ $(document).ready(() => {
             }
         }
     })
+
+    $.ajax({
+        type: "POST",
+        url: "/test",
+        data: 'name=Shamar',
+        success: function(data) {
+            console.log(data.text);
+        }
+    });
 })
