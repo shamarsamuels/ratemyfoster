@@ -46,6 +46,13 @@ class FamilyPage(webapp2.RequestHandler):
 class Load(webapp2.RequestHandler):
     def get(self):
         load()
+
+        families = Family.query()
+        families_list = []
+        for family in families:
+            families_list.append({'name': family.name, 'id': family.key.id()})
+        families_list = json.dumps(families_list)
+
         self.redirect('/')
 
 

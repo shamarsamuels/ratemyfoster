@@ -8,7 +8,7 @@
     font-family: 'Bungee Shade', cursive;
     margin-top: 110px;
     color: black;
-    height: 260px;
+    height: 160px;
     cursor: default;
 }
 
@@ -51,8 +51,8 @@
     border-radius: 5px;
 }
 
-#search_container::-webkit-scrollbar { 
-    display: none; 
+#search_container::-webkit-scrollbar {
+    display: none;
 }
 
 .search_result {
@@ -66,12 +66,17 @@
 }
 body {
     background-color: rgb(255, 255, 255);
+    background: url('/images/family.jpg');
+    background-size: cover;
 }
 
+body::before {
+  opacity: 0.5;
+}
 
 .no_result_text{
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     margin-top: 25px;
     font-family: 'Arvo', serif;
 }
