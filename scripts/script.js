@@ -5,14 +5,35 @@ $(document).ready(() => {
     const states_keys = Object.keys(states)
     states_keys.forEach(el => {
       let new_option = `
-        <option value='${el}'>
+        <option id='${el}' value='${el}'>
           ${el}
         </option>
       `
       $('#states_selection').append(new_option)
     })
 
-    //$('#states_selection').append('')
+    $('#states_selection').change(el => {
+      if (states[$('#states_selection').val()]){
+        $('#cities_selection').empty()
+        states[$('#states_selection').val()].forEach(el => {
+          let new_option = `
+            <option id='${el}' value='${el}'>
+              ${el}
+            </option>
+          `
+          $('#cities_selection').append(new_option)
+        })
+      } else {
+        $('#cities_selection').empty()
+        let new_option = `
+          <option>
+            City
+          </option>
+        `
+        $('#cities_selection').append(new_option)
+      }
+    })
+
     $('#search').on('input', el => {
         $("#search_container").empty();
         let search = el.target.value.toLowerCase()

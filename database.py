@@ -66,5 +66,3 @@ def load():
     Family(name='Ice',city='Manhattan',state='New York').put()
     Family(name='Idell',city='Manhattan',state='New York').put()
     Family(name='Iiacqua',city='Manhattan',state='New York').put()
-    Family(name='',city='',state='').put()
-    
