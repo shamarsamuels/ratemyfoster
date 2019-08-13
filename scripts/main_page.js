@@ -2,6 +2,7 @@ $(document).ready(() => {
     const states = $('#states').data('states')
 
     const states_keys = Object.keys(states)
+    
     states_keys.forEach(el => {
       let new_option = `
         <option id='${el}' value='${el}'>

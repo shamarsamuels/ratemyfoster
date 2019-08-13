@@ -3,6 +3,7 @@ import jinja2
 import os
 import time
 from google.appengine.ext import ndb
+from google.appengine.api import search
 from database import load
 from app_models import Family
 import json
@@ -25,6 +26,28 @@ for family in families:
 
 states = json.dumps(states)
 
+families_query = Family.query()
+
+def tokenize_autocomplete(phrase):
+    a = []
+    for i in range(0, len(phrase) + 1):
+        a.append(phrase[0:i])
+
+    return a
+
+index = search.Index(name='item_autocomplete')
+for item in families_query:  # item = ndb.model
+    doc_id = item.key.urlsafe()
+    name = ','.join(tokenize_autocomplete(item.name))
+    state = item.state
+    document = search.Document(
+        doc_id=doc_id,
+        fields=[
+            search.TextField(name='name', value=name),
+            search.TextField(name='state', value=state)
+        ])
+    index.put(document)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         main_page_template = the_jinja_env.get_template('templates/main_page.html')
@@ -44,8 +67,9 @@ class FamilyPage(webapp2.RequestHandler):
         if family_id:
             if family_id.isdigit():
                 family_id = int(family_id)
+                family = Family.get_by_id(family_id)
                 family_page_template = the_jinja_env.get_template('templates/family_page.html')
-                self.response.write(family_page_template.render({'name':'Samuels'}))
+                self.response.write(family_page_template.render({'name':family.name, 'state':family.state, 'city':family.city}))
                 return
 
         self.redirect('/')
@@ -77,14 +101,59 @@ class InputHandler(webapp2.RequestHandler):
             'response':False,
         }
 
+        '''
         families_query = Family.query()
-        families_search = families_query.filter(Family.name_lower == 'brown').fetch()
+        families_filter = families_query.filter(Family.name_lower >= 'ba').fetch()
         families = []
+        
+        for family in families_filter:
+            print(family.name)
+        '''
+
+        
+        results = search.Index(name="item_autocomplete").search(
+            "name:" + input
+        )
+        #result = Family.
+        families = []
+        if results:
+            for result in results:
+                family = ndb.Key(urlsafe=result.doc_id).get()
+                if family:
+                    families.append({
+                        'name':family.name,
+                        'id':family.key.id(),
+                    })
+        #print(results[0].doc_id.get())
+        
+
+        '''
+        results = ndb.gql("SELECT * FROM Family WHERE name_lower >= 'b' AND name_lower < 'b*'").fetch()
+        
+        if results:
+            for i in results:
+                print(i)
+        else:
+            print('No Return')
+        '''
+        
+        '''
+        families_search = families_query.fetch()
 
         for family in families_search:
-            families.append(family)
+            if family.name_lower[0:len(input)] == input:
+                families.append({
+                    "name":family.name,
+                    "id":family.key.id()
+                })
 
-        data['response'] = families
+        if len(families) > 0:
+            data['response'] = families
+        
+        '''
+
+        if len(families) > 0:
+            data['response'] = families
 
         # Output the JSON
         self.response.headers['Content-Type'] = 'application/json'

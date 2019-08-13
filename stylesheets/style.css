@@ -79,7 +79,7 @@
   border-color: #03b6fc;
 }
 
-body {
+#main_page_body {
     background-color: rgb(255, 255, 255);
     background: url('/images/family.jpg');
     background-size: 110%;
@@ -105,3 +105,120 @@ body::before {
     margin-left: 20px;
     margin-top: 30px;
 }
+
+.family_image {
+    display: inline-block;
+    width: 250px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-top: 25px;
+    margin-left: 150px;
+}
+
+.family_page_name {
+    text-align: center;
+    display: inline-block;
+    font-size: 25px;
+    width: 250px;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 90px;
+    font-family: 'Arvo', serif;
+}
+
+.family_location {
+    display: inline-block;
+    width: 250px;
+    position: absolute;
+    margin-top: 120px;
+    margin-left: 60px;
+    font-family: 'Arvo', serif;
+}
+
+hr{
+    display: block;
+    margin: 0;
+    margin-top: 25px;
+    width: 60%;
+}
+
+.vl {
+    -webkit-transform:rotate(90deg);
+    right: 95px;
+    bottom: 330px;
+    position:absolute;
+}
+
+.comments_header{
+    position: absolute;
+    right: 210px;
+    top: 50px;
+    font-family: 'Arvo', serif;
+    font-size: 25px;
+}
+
+.comments_container{
+    position: absolute;
+    right: 70px;
+    top: 120px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    width: 400px;
+    height: 600px;
+}
+
+.ratings_header{
+    font-family: 'Arvo', serif;
+    text-align: center;
+    width: 860px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.ratings_container{
+    /*
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    */
+    height: 500px;
+    width: 860px;
+    margin-top: 5px;
+}
+
+.rating_section {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 10px;
+    width: 98%;
+    height:87.5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+.ratings_divider{
+    margin: 0px;
+    margin-top: 5px;
+    width:100%;
+}
+
+.skill{
+    text-align: center;
+    margin-top: 5px;
+    font-family: 'Arvo', serif;
+}
+
+.star {
+    width: 40px;
+}
+
+/*
+.star:hover{
+    color: gold;
+    content: url('/images/star2.png');
+}
+*/
