@@ -87,6 +87,8 @@
     background-position: center 30%;
 }
 
+
+
 body::before {
   opacity: 0.5;
 }
@@ -119,7 +121,7 @@ body::before {
 .family_page_name {
     text-align: center;
     display: inline-block;
-    font-size: 2vw;
+    font-size: 1.7vw;
     width: 20%;
     position: absolute;
     margin-left: 1%;
@@ -130,7 +132,7 @@ body::before {
 .family_location {
     text-align: center;
     display: inline-block;
-    font-size: 2vw;
+    font-size: 1.7vw;
     width: 20%;
     position: absolute;
     margin-left: 1%;
@@ -157,12 +159,12 @@ hr{
 .comments_header{
     position: absolute;
     right: 10%;
-    top: 5%;
+    top: 6%;
     font-family: 'Arvo', serif;
     font-size: 2vw;
 }
 
-.comments_container{
+.comments_section{
     position: absolute;
     right: 0.7%;
     top: 120px;
@@ -172,8 +174,38 @@ hr{
     border-radius: 10px;
     width: 30%;
     height: 800px;
+
 }
 
+.comments_container {
+    bottom: 9%;
+    position: absolute;
+    width: 95%;
+    height:700px;
+    margin-left: 2.5%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: grey;
+}
+
+
+.comments_input{
+    bottom: 3%;
+    position: absolute;
+    width: 95%;
+    height:30px;
+    margin-left: 2.5%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 120%;
+    font-family: 'Courier New', Courier, monospace;
+    border-color: grey;
+}
+.comments_input:focus{
+    outline: none;
+}
 .ratings_header{
     font-family: 'Arvo', serif;
     text-align: center;
@@ -225,12 +257,20 @@ hr{
 }
 
 .stars {
+    display: inline;
     margin-left: 2.8%;
 }
 .star {
     width: 6%;
     margin-left: 4%;
     margin-top: 1%;
+}
+
+.client_rating {
+    display: inline;
+    font-family: 'Arvo', serif;
+    font-size: 3vw;
+    margin-left: 10%;
 }
 
 /*
