@@ -185,7 +185,7 @@ hr{
     margin-left: 2.5%;
     border-radius: 5px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-color: grey;
 }
 
@@ -198,7 +198,7 @@ hr{
     margin-left: 2.5%;
     border-radius: 5px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     font-size: 120%;
     font-family: 'Courier New', Courier, monospace;
     border-color: grey;
@@ -233,7 +233,7 @@ hr{
     border-width: 1px;
     border-radius: 10px;
     width: 98%;
-    height:130px;
+    height:135px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
@@ -256,21 +256,27 @@ hr{
     font-family: 'Arvo', serif;
 }
 
+.stars_divider {
+    display: inline;
+    margin-left: 5%;
+    margin-right: 4%;
+}
+
 .stars {
     display: inline;
-    margin-left: 2.8%;
+    margin-left: 1.5%;
 }
 .star {
-    width: 6%;
+    width: 4%;
     margin-left: 4%;
-    margin-top: 1%;
+    margin-top: 2%;
 }
 
 .client_rating {
-    display: inline;
+    display: inline-block;
     font-family: 'Arvo', serif;
     font-size: 3vw;
-    margin-left: 10%;
+    margin-left: 22%;
 }
 
 /*

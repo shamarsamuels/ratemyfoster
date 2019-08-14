@@ -25,7 +25,6 @@ $(document).ready(()=> {
                     $(`#row_${i}_star_${y}`).attr('src', '/images/star2.png')
                 }
                 console.log(`#row_${i}_star_${x}`)
-                $(`#row_${i}_client_rating`).html(x + '.0')
             })
         }
     }
