@@ -1,5 +1,5 @@
 from google.appengine.ext import ndb
-
+from google.appengine.api import search 
 
 class Family(ndb.Model):
     name = ndb.StringProperty(required=True)

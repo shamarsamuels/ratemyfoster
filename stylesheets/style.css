@@ -21,7 +21,7 @@
 
 #search {
     display: inline-block;
-    margin-left: 370px;
+    margin-left: 25%;
     width: 27%;
     height: 34px;
     margin-top: 1%;
@@ -45,7 +45,8 @@
   font-family: 'Courier New', Courier, monospace;
   padding-bottom: 5px;
   position:relative;
-  top:-4px;
+  top:-5.4px;
+  border-radius: 5px;
 }
 
 #search:focus{
@@ -54,7 +55,7 @@
 
 #search_container {
     display: block;
-    margin-left: 370px;
+    margin-left: 25%;
     width: 27%;
     height: 350px;
     overflow-y: scroll;
@@ -108,30 +109,32 @@ body::before {
 
 .family_image {
     display: inline-block;
-    width: 250px;
+    width: 15%;
     border-radius: 25px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 25px;
-    margin-left: 150px;
+    margin-top: 1%;
+    margin-left: 16%;
 }
 
 .family_page_name {
     text-align: center;
     display: inline-block;
-    font-size: 25px;
-    width: 250px;
+    font-size: 2vw;
+    width: 20%;
     position: absolute;
-    margin-left: 20px;
-    margin-top: 90px;
+    margin-left: 1%;
+    margin-top: 3.7%;
     font-family: 'Arvo', serif;
 }
 
 .family_location {
+    text-align: center;
     display: inline-block;
-    width: 250px;
+    font-size: 2vw;
+    width: 20%;
     position: absolute;
-    margin-top: 120px;
-    margin-left: 60px;
+    margin-left: 1%;
+    margin-top: 5.7%;
     font-family: 'Arvo', serif;
 }
 
@@ -143,36 +146,38 @@ hr{
 }
 
 .vl {
-    -webkit-transform:rotate(90deg);
-    right: 95px;
-    bottom: 330px;
-    position:absolute;
+    width: 1px;
+    height: 850px;
+    position: absolute;
+    right: 32%;
+    top: 5%;
+    background-color: black;
 }
 
 .comments_header{
     position: absolute;
-    right: 210px;
-    top: 50px;
+    right: 10%;
+    top: 5%;
     font-family: 'Arvo', serif;
-    font-size: 25px;
+    font-size: 2vw;
 }
 
 .comments_container{
     position: absolute;
-    right: 70px;
+    right: 0.7%;
     top: 120px;
-    border-style: solid;
+    border-style: hidden;
     border-color: black;
     border-width: 2px;
     border-radius: 10px;
-    width: 400px;
-    height: 600px;
+    width: 30%;
+    height: 800px;
 }
 
 .ratings_header{
     font-family: 'Arvo', serif;
     text-align: center;
-    width: 860px;
+    width: 65%;
     margin-top: 10px;
     font-size: 20px;
 }
@@ -185,17 +190,18 @@ hr{
     border-radius: 10px;
     */
     height: 500px;
-    width: 860px;
+    width: 65%;
     margin-top: 5px;
+    margin-left: 1%;
 }
 
 .rating_section {
-    border-style: solid;
+    border-style: hidden;
     border-color: black;
     border-width: 1px;
     border-radius: 10px;
     width: 98%;
-    height:87.5px;
+    height:130px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
@@ -205,6 +211,12 @@ hr{
     margin-top: 5px;
     width:100%;
 }
+.ratings_upper_divider{
+    margin: 0px;
+    margin-top: 5px;
+    width:65%;
+    margin-left: 1%;
+}
 
 .skill{
     text-align: center;
@@ -212,8 +224,13 @@ hr{
     font-family: 'Arvo', serif;
 }
 
+.stars {
+    margin-left: 2.8%;
+}
 .star {
-    width: 40px;
+    width: 6%;
+    margin-left: 4%;
+    margin-top: 1%;
 }
 
 /*
