@@ -1,9 +1,16 @@
 from google.appengine.ext import ndb
 from google.appengine.api import search 
+import os, random
 
 class Family(ndb.Model):
     name = ndb.StringProperty(required=True)
     name_lower = ndb.ComputedProperty(lambda self: self.name.lower())
     city = ndb.StringProperty(required=True)
     state = ndb.StringProperty(required=True)
-    rating = ndb.IntegerProperty(default=100)
+    image = ndb.StringProperty(required=False)
+
+
+def make_Family(name, city, state):
+    new_family = Family(name=name, city=city, state=state)
+    new_family.image = str(random.randint(1,61))
+    new_family.put()
