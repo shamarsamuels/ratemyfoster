@@ -69,7 +69,9 @@ class FamilyPage(webapp2.RequestHandler):
                 family_id = int(family_id)
                 family = Family.get_by_id(family_id)
                 family_page_template = the_jinja_env.get_template('templates/family_page.html')
-                self.response.write(family_page_template.render({'name':family.name, 'state':family.state, 'city':family.city, 'image':'/images/families/'+ family.image}))
+                ratings = json.loads(family.ratings)
+                ratings = json.dumps(ratings)
+                self.response.write(family_page_template.render({'name':family.name, 'state':family.state, 'city':family.city, 'image':'/images/families/'+ family.image, 'ratings':ratings}))
                 return
 
         self.redirect('/')

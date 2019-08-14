@@ -193,9 +193,23 @@ hr{
 .comments_input{
     bottom: 3%;
     position: absolute;
-    width: 95%;
+    width: 73%;
     height:30px;
     margin-left: 2.5%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 120%;
+    font-family: 'Courier New', Courier, monospace;
+    border-color: grey;
+}
+
+.comments_submit{
+    bottom: 3%;
+    position: absolute;
+    width: 20%;
+    height:34px;
+    margin-left: 78%;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;

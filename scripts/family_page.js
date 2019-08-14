@@ -1,4 +1,6 @@
 $(document).ready(()=> {
+    const ratings = $('#ratings').data('ratings')
+    
     for(let i = 1;i <= 5;i++){
         let clicked = false
         let current_clicked = 0
