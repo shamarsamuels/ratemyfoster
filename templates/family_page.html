@@ -7,11 +7,15 @@
     <link href="https://fonts.googleapis.com/css?family=Arvo:700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bungee+Shade&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta id="family_id" data-familyid="{{ family_id }}">
     <meta id="ratings" data-ratings="{{ ratings }}">
+    <meta id="user_ratings" data-userratings="{{ user_ratings }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   </head> 
   <body>
     <div></div>
-    <img class='family_image' src={{image}} onerror="this.src='/images/question_mark.png'" >
+    <img class='image house_image' src={{house_image}} onerror="this.src='/images/question_mark.png'" >
+    <img class='image family_image' src={{family_image}} onerror="this.src='/images/question_mark.png'" >
     <div class='family_page_name'>{{name}} Family</div>
     <div class='family_location'>{{city}}, {{state}}</div>
     <hr class='ratings_upper_divider'>

@@ -6,9 +6,9 @@
     text-align: center;
     font-size: 140px;
     font-family: 'Bungee Shade', cursive;
-    margin-top: 60px;
+    margin-top: 30px;
     color: black;
-    height: 160px;
+    height: 250px;
     cursor: default;
 }
 
@@ -84,7 +84,7 @@
     background-color: rgb(255, 255, 255);
     background: url('/images/family.jpg');
     background-size: 110%;
-    background-position: center 30%;
+    background-position: center 20%;
 }
 
 
@@ -109,34 +109,37 @@ body::before {
     margin-top: 30px;
 }
 
-.family_image {
+.image {
     display: inline-block;
-    width: 15%;
+    width: 17%;
+    height:140px;
     border-radius: 25px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin-top: 1%;
-    margin-left: 16%;
 }
 
+.house_image {
+    margin-left: 2%;
+}
 .family_page_name {
     text-align: center;
     display: inline-block;
-    font-size: 1.7vw;
-    width: 20%;
+    font-size: 150%;
+    width: 28%;
     position: absolute;
     margin-left: 1%;
-    margin-top: 3.7%;
+    margin-top: 3.8%;
     font-family: 'Arvo', serif;
 }
 
 .family_location {
     text-align: center;
     display: inline-block;
-    font-size: 1.7vw;
-    width: 20%;
+    font-size: 100%;
+    width: 28%;
     position: absolute;
     margin-left: 1%;
-    margin-top: 5.7%;
+    margin-top: 6%;
     font-family: 'Arvo', serif;
 }
 

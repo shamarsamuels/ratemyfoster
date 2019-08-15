@@ -48,7 +48,7 @@ $(document).ready(() => {
                         let new_div = `
                             <div id='result_${index}' class="search_result">
                                 <div class='text family_name'>${family.name}</div>
-                                <form id='result_${index}_form' method='post' action='/'>
+                                <form id='result_${index}_form' method='post' action='/search'>
                                     <input type='hidden' name='id' value='${family.id}'>
                                 </form>
                             </div>
