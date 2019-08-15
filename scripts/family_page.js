@@ -53,4 +53,12 @@ $(document).ready(()=> {
             })
         }
     }
+    $('#comments_submit').on('click', () => {
+        let input = $('#comments_input').val()
+        if(input){
+            $('#comments_container').append(`
+                <div>${input}</div>
+            `)
+        }
+    })
 })

@@ -6,19 +6,18 @@ from google.appengine.ext import ndb
 from google.appengine.api import search
 from google.appengine.api import users
 from database import load
-from app_models import make_User, User, Family
+from app_models import make_User, User, Family, ANCESTORY_KEY_FAM, ANCESTORY_KEY_USR
 import json
-
 
 the_jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-families = Family.query()
+families_query = Family.query(ancestor=ANCESTORY_KEY_FAM)
 states = {}
 
-for family in families:
+for family in families_query:
     if family.state in states:
         if not family.city in states[family.state]:
             states[family.state].append(family.city)
@@ -27,14 +26,12 @@ for family in families:
 
 states = json.dumps(states)
 
-families_query = Family.query()
-
 def get_current_user(current_page):
     google_user = users.get_current_user()
     if google_user:
         google_user_id = str(google_user.user_id())
         print(google_user_id)
-        user = User.query().filter(User.user_id == google_user_id).get()
+        user = User.query(ancestor=ANCESTORY_KEY_USR).filter(User.user_id == google_user_id).get()
         if not user:
             user = make_User(google_user_id)
 
@@ -98,27 +95,29 @@ class FamilyPage(webapp2.RequestHandler):
         if user:
             family_id = self.request.get('id')
             if family_id:
-                if family_id.isdigit():
-                    family_id = int(family_id)
-                    family = Family.get_by_id(family_id)
-                    family_page_template = the_jinja_env.get_template('templates/family_page.html')
-                    ratings = json.loads(family.ratings)
-                    ratings = json.dumps(ratings)
+                print(family_id)
+                family = ndb.Key(urlsafe=family_id).get()
+                print(family)
 
-                    user_ratings = json.loads(user.ratings)
-                    user_family_ratings = [0, 0, 0, 0, 0]
-                    if str(family_id) in user_ratings:
-                        print('Visited Family')
-                        user_family_ratings = user_ratings[str(family_id)]
-                    else:
-                        print('Never Visited Family')
-                        user_ratings[str(family_id)] = [0, 0, 0, 0, 0]
-                        user.user_ratings = json.dumps(user_ratings)
-                        user.put()
-                    
-                    user_family_ratings = json.dumps(user_family_ratings)
-                    self.response.write(family_page_template.render({'family_id': family_id, 'name':family.name, 'state':family.state, 'city':family.city, 'family_image':'/images/families/'+ family.house_image, 'house_image':'/images/houses/'+ family.house_image, 'ratings':ratings, 'user_ratings':user_family_ratings}))
-                    return
+                family_page_template = the_jinja_env.get_template('templates/family_page.html')
+                ratings = json.loads(family.ratings)
+                ratings = json.dumps(ratings)
+
+                user_ratings = json.loads(user.ratings)
+                user_family_ratings = [0, 0, 0, 0, 0]
+
+                if str(family_id) in user_ratings:
+                    print('Visited Family')
+                    user_family_ratings = user_ratings[str(family_id)]
+                else:
+                    print('Never Visited Family')
+                    user_ratings[str(family_id)] = [0, 0, 0, 0, 0]
+                    user.user_ratings = json.dumps(user_ratings)
+                    user.put()
+                
+                user_family_ratings = json.dumps(user_family_ratings)
+                self.response.write(family_page_template.render({'family_id': family_id, 'name':family.name, 'state':family.state, 'city':family.city, 'family_image':'/images/families/'+ family.house_image, 'house_image':'/images/houses/'+ family.house_image, 'ratings':ratings, 'user_ratings':user_family_ratings}))
+                return
 
             self.redirect('/search')
 
@@ -127,10 +126,10 @@ class Load(webapp2.RequestHandler):
     def get(self):
         load()
 
-        families = Family.query()
+        families_query = Family.query(ancestor=ANCESTORY_KEY_FAM)
         states = {}
 
-        for family in families:
+        for family in families_query:
             if family.state in states:
                 if not family.city in states[family.state]:
                     states[family.state].append(family.city)
@@ -139,6 +138,20 @@ class Load(webapp2.RequestHandler):
 
         states = json.dumps(states)
 
+        index = search.Index(name='item_autocomplete')
+        for item in families_query:  # item = ndb.model
+            doc_id = item.key.urlsafe()
+            name = ','.join(tokenize_autocomplete(item.name))
+            state = item.state
+            document = search.Document(
+                doc_id=doc_id,
+                fields=[
+                    search.TextField(name='name', value=name),
+                    search.TextField(name='state', value=state)
+                ])
+            index.put(document)
+
+        time.sleep(2)
         self.redirect('/search')
 
 
@@ -159,7 +172,7 @@ class InputHandler(webapp2.RequestHandler):
                 if family:
                     families.append({
                         'name': family.name,
-                        'id': family.key.id(),
+                        'id': family.key.urlsafe(),
                     })
         if len(families) > 0:
             data['response'] = families
@@ -177,14 +190,42 @@ class UpdateHandler(webapp2.RequestHandler):
             family_id = self.request.get('family_id')
             if row and star and family_id:
                 user_ratings = json.loads(user.ratings)
+                family = ndb.Key(urlsafe=family_id).get()
+
+                family_ratings = json.loads(family.ratings)
                 if family_id in user_ratings:
-                    user_ratings[family_id][int(row) - 1] = int(star)
+                    previous_rating = user_ratings[family_id][int(row) - 1]
+                    if previous_rating > 0:
+                        family_ratings[int(row) - 1]['total_rating'] -= previous_rating
+                        family_ratings[int(row) - 1]['total_rating'] += int(star)
+                        user_ratings[family_id][int(row) - 1] = int(star)
+
+                        user.ratings = json.dumps(user_ratings)
+                        user.put()
+                    else:
+                        family_ratings[int(row) - 1]['total_rating'] += int(star)
+                        family_ratings[int(row) - 1]['times_rated'] += 1
+                        user_ratings[family_id][int(row) - 1] = int(star)
+
+                        user.ratings = json.dumps(user_ratings)
+                        user.put() 
                 else:
+                    print(1)
+                    family_ratings[int(row) - 1]['total_rating'] += int(star)
+                    family_ratings[int(row) - 1]['times_rated'] += 1
+
                     user_ratings[family_id] = [0, 0, 0, 0, 0]
                     user_ratings[family_id][int(row) - 1] = int(star)
 
-                user.ratings = json.dumps(user_ratings)
-                user.put()
+                    user.ratings = json.dumps(user_ratings)
+                    user.put()
+
+
+                
+
+                family.ratings = json.dumps(family_ratings)
+                family.put()    
+                
 
 
 app = webapp2.WSGIApplication([

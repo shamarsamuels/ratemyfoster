@@ -18,8 +18,11 @@ class User(ndb.Model):
     user_id = ndb.StringProperty(required = True)
     ratings = ndb.StringProperty(required= False)
 
+ANCESTORY_KEY_FAM = ndb.Key("Family","Family_root")
+ANCESTORY_KEY_USR = ndb.Key("User","User_root")
+
 def make_Family(name, city, state):
-    new_family = Family(name=name, city=city, state=state)
+    new_family = Family(parent=ANCESTORY_KEY_FAM,name=name, city=city, state=state)
     new_family.family_image = str(random.randint(1,61))
     new_family.house_image = str(random.randint(1,69))
     new_family.ratings = json.dumps([{
@@ -42,7 +45,9 @@ def make_Family(name, city, state):
 
 
 def make_User(user_id):
-    user = User(user_id=user_id)
+    user = User(parent=ANCESTORY_KEY_USR, user_id=user_id)
     user.ratings = json.dumps({})
     user.put()
     return user
+
+
