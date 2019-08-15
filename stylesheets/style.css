@@ -187,11 +187,16 @@ hr{
     height:700px;
     margin-left: 2.5%;
     border-radius: 5px;
-    border-style: solid;
+    border-style: hidden;
     border-width: 1px;
     border-color: grey;
+    overflow-y: scroll;
 }
 
+
+.comments_container::-webkit-scrollbar {
+    display: none;
+}
 
 .comments_input{
     bottom: 3%;
@@ -222,6 +227,20 @@ hr{
 }
 .comments_input:focus{
     outline: none;
+}
+
+.comment{
+    border-color: #FFD700;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 3px;
+    width: 97%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 .ratings_header{
     font-family: 'Arvo', serif;
