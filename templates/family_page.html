@@ -112,7 +112,8 @@
       <div class='comments_container' id='comments_container'>
         {% for comment in comments %}
             <div class="comment">
-                {{comment.content}}
+                <div class='comment_header'>Anonymous User - {{comment.timestamp}}</div> 
+                <div class='comment_content'>{{comment.content}}</div>
             </div>
         {% endfor %}
       </div>

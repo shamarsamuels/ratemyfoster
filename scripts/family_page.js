@@ -99,7 +99,8 @@ $(document).ready(()=> {
         if(input){
             $('#comments_container').prepend(`
                 <div class="comment">
-                    ${input}
+                    <div class='comment_header'>Anonymous User Said</div> 
+                    <div class='comment_content'>${input}</div>
                 </div>
             `)
             $.ajax({

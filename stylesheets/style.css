@@ -6,9 +6,9 @@
     text-align: center;
     font-size: 140px;
     font-family: 'Bungee Shade', cursive;
-    margin-top: 30px;
+    margin-top: 90px;
     color: black;
-    height: 250px;
+    height: 170px;
     cursor: default;
 }
 
@@ -30,15 +30,15 @@
     border-style: solid;
     text-decoration: none;
     text-emphasis: none;
-    border-width: 1px;
-    border-color: grey;
+    border-width: 3px;
+    border-color: #EE8A1A;
     position:relative;
 
 }
 
 .selection {
   display: inline-block;
-  border-color: grey;
+  border-color: #EE8A1A;
   background-color: white;
   height: 35px;
   width: 10%;
@@ -47,6 +47,11 @@
   position:relative;
   top:-5.4px;
   border-radius: 5px;
+  border-width: 3px;
+}
+
+.selection:focus{
+    outline: none;
 }
 
 #search:focus{
@@ -71,9 +76,9 @@
     height: 70px;
     border-radius: 5px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 3px;
     margin: 5px;
-    border-color: grey;
+    border-color: #EE8A1A;
 }
 
 .search_result:hover{
@@ -105,8 +110,8 @@ body::before {
     font-size: 25px;
     text-align: center;
     font-family: 'Arvo', serif;
-    margin-left: 20px;
-    margin-top: 30px;
+    margin-left: 30px;
+    margin-top: 23px;
 }
 
 .image {
@@ -159,15 +164,18 @@ hr{
     margin: 0;
     margin-top: 25px;
     width: 60%;
+    height: 2px;
+    border-color: #EE8A1A;
+    background-color: #EE8A1A;
 }
 
 .vl {
-    width: 1px;
+    width: 3px;
     height: 850px;
     position: absolute;
     right: 32%;
     top: 5%;
-    background-color: black;
+    background-color: #EE8A1A;
 }
 
 .comments_header{
@@ -217,31 +225,31 @@ hr{
     margin-left: 2.5%;
     border-radius: 5px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 3px;
     font-size: 120%;
     font-family: 'Courier New', Courier, monospace;
-    border-color: grey;
+    border-color: #EE8A1A;
 }
 
 .comments_submit{
-    bottom: 3%;
+    bottom: 3.3%;
     position: absolute;
     width: 20%;
     height:34px;
     margin-left: 78%;
     border-radius: 5px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 3px;
     font-size: 120%;
     font-family: 'Courier New', Courier, monospace;
-    border-color: grey;
+    border-color: #EE8A1A;
 }
 .comments_input:focus{
     outline: none;
 }
 
 .comment{
-    border-color: #FFD700;
+    border-color: #EE8A1A;
     border-style: solid;
     border-radius: 5px;
     border-width: 3px;
@@ -250,9 +258,21 @@ hr{
     margin-left: auto;
     margin-right: auto;
     margin-top: 3%;
-    font-family: Arial, Helvetica, sans-serif;
-
+    font-family: 'Arvo', serif;
 }
+
+.comment_header{
+    font-size: 12px;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.comment_content{
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
 .ratings_header{
     font-family: 'Arvo', serif;
     text-align: center;

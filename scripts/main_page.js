@@ -45,18 +45,22 @@ $(document).ready(() => {
                 success: (data) => {
                     if(data.response){
                       data.response.forEach((family, index) => {
-                        let new_div = `
-                            <div id='result_${index}' class="search_result">
-                                <div class='text family_name'>${family.name}</div>
-                                <form id='result_${index}_form' method='post' action='/search'>
-                                    <input type='hidden' name='id' value='${family.id}'>
-                                </form>
-                            </div>
-                        `
-                        $('#search_container').append(new_div)
-                        $(`#result_${index}`).on('click', () => {
-                            $(`#result_${index}_form`).submit()
-                        })
+                        let added = []
+                        if(added.indexOf(family.id) < 0){
+                          let new_div = `
+                              <div id='result_${index}' class="search_result">
+                                  <div class='text family_name'>${family.name}</div>
+                                  <form id='result_${index}_form' method='post' action='/search'>
+                                      <input type='hidden' name='id' value='${family.id}'>
+                                  </form>
+                              </div>
+                          `
+                          $('#search_container').append(new_div)
+                          $(`#result_${index}`).on('click', () => {
+                              $(`#result_${index}_form`).submit()
+                          })
+                          added.push(family.id)
+                        }
                       })
                     } else {
                       let new_div = `

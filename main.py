@@ -20,18 +20,18 @@ states = {}
 
 for family in families_query:
     if family.state in states:
-        if not family.city in states[family.state]:
+        if family.city not in states[family.state]:
             states[family.state].append(family.city)
     else:
         states[family.state] = [family.city]
 
 states = json.dumps(states)
 
+
 def get_current_user(current_page):
     google_user = users.get_current_user()
     if google_user:
         google_user_id = str(google_user.user_id())
-        print(google_user_id)
         user = User.query(ancestor=ANCESTORY_KEY_USR).filter(User.user_id == google_user_id).get()
         if not user:
             user = make_User(google_user_id)
@@ -96,9 +96,7 @@ class FamilyPage(webapp2.RequestHandler):
         if user:
             family_id = self.request.get('id')
             if family_id:
-                print(family_id)
                 family = ndb.Key(urlsafe=family_id).get()
-                print(family)
 
                 family_page_template = the_jinja_env.get_template('templates/family_page.html')
                 ratings = json.loads(family.ratings)
@@ -108,25 +106,23 @@ class FamilyPage(webapp2.RequestHandler):
                 user_family_ratings = [0, 0, 0, 0, 0]
 
                 if str(family_id) in user_ratings:
-                    print('Visited Family')
                     user_family_ratings = user_ratings[str(family_id)]
                 else:
-                    print('Never Visited Family')
                     user_ratings[str(family_id)] = [0, 0, 0, 0, 0]
                     user.user_ratings = json.dumps(user_ratings)
                     user.put()
-                
+
                 user_family_ratings = json.dumps(user_family_ratings)
                 self.response.write(family_page_template.render({
-                    'family_id': family_id, 
-                    'name':family.name, 
-                    'state':family.state, 
-                    'city':family.city, 
-                    'family_image':'/images/families/'+ family.house_image, 
-                    'house_image':'/images/houses/'+ family.house_image, 
-                    'ratings':ratings, 
-                    'user_ratings':user_family_ratings,
-                    'comments':family.comments,
+                    'family_id': family_id,
+                    'name': family.name,
+                    'state': family.state,
+                    'city': family.city,
+                    'family_image': '/images/families/'+family.house_image,
+                    'house_image': '/images/houses/'+family.house_image,
+                    'ratings': ratings,
+                    'user_ratings': user_family_ratings,
+                    'comments': family.comments,
                 }))
                 return
 
@@ -142,7 +138,7 @@ class Load(webapp2.RequestHandler):
 
         for family in families_query:
             if family.state in states:
-                if not family.city in states[family.state]:
+                if family.city not in states[family.state]:
                     states[family.state].append(family.city)
             else:
                 states[family.state] = [family.city]
@@ -219,9 +215,8 @@ class UpdateHandler(webapp2.RequestHandler):
                         user_ratings[family_id][int(row) - 1] = int(star)
 
                         user.ratings = json.dumps(user_ratings)
-                        user.put() 
+                        user.put()
                 else:
-                    print(1)
                     family_ratings[int(row) - 1]['total_rating'] += int(star)
                     family_ratings[int(row) - 1]['times_rated'] += 1
 
@@ -231,12 +226,10 @@ class UpdateHandler(webapp2.RequestHandler):
                     user.ratings = json.dumps(user_ratings)
                     user.put()
 
-
-                
-
                 family.ratings = json.dumps(family_ratings)
-                family.put()    
-                
+                family.put()
+
+
 class CommentHandler(webapp2.RequestHandler):
     def post(self):
         family_id = self.request.get('family_id')
@@ -249,15 +242,15 @@ class CommentHandler(webapp2.RequestHandler):
                 family.comments.insert(0, new_comment)
                 family.put()
 
+
 class GetData(webapp2.RequestHandler):
     def post(self):
         family_id = self.request.get('family_id')
-        data_type = self.request.get('type')
-
         family = ndb.Key(urlsafe=family_id).get()
         if family:
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps(family.ratings))
+
 
 app = webapp2.WSGIApplication([
     ('/', LoginPage),
