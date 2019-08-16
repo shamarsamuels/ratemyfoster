@@ -4,6 +4,11 @@ import os, random
 import json
 
 
+class Comment(ndb.Model):
+    content = ndb.StringProperty(required=True)
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
+
 class Family(ndb.Model):
     name = ndb.StringProperty(required=True)
     name_lower = ndb.ComputedProperty(lambda self: self.name.lower())
@@ -12,6 +17,7 @@ class Family(ndb.Model):
     family_image = ndb.StringProperty(required=False)
     house_image = ndb.StringProperty(required=False)
     ratings = ndb.StringProperty(required=False)
+    comments = ndb.StructuredProperty(Comment, repeated=True)
 
 
 class User(ndb.Model):
@@ -20,6 +26,7 @@ class User(ndb.Model):
 
 ANCESTORY_KEY_FAM = ndb.Key("Family","Family_root")
 ANCESTORY_KEY_USR = ndb.Key("User","User_root")
+
 
 def make_Family(name, city, state):
     new_family = Family(parent=ANCESTORY_KEY_FAM,name=name, city=city, state=state)

@@ -125,9 +125,9 @@ body::before {
     text-align: center;
     display: inline-block;
     font-size: 150%;
-    width: 28%;
+    width: 23%;
     position: absolute;
-    margin-left: 1%;
+    /* margin-left: 1%; */
     margin-top: 3.8%;
     font-family: 'Arvo', serif;
 }
@@ -136,11 +136,22 @@ body::before {
     text-align: center;
     display: inline-block;
     font-size: 100%;
-    width: 28%;
+    width: 23%;
     position: absolute;
-    margin-left: 1%;
+    /* margin-left: 1%; */
     margin-top: 6%;
     font-family: 'Arvo', serif;
+}
+
+#family_rating {
+    text-align: center;
+    display: inline-block;
+    font-size: 300%;
+    width: 23%;
+    position: absolute;
+    margin-left: 12%;
+    margin-top: 3.8%;
+    font-family: 'Arvo', serif; 
 }
 
 hr{

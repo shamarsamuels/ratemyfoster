@@ -6,8 +6,9 @@ from google.appengine.ext import ndb
 from google.appengine.api import search
 from google.appengine.api import users
 from database import load
-from app_models import make_User, User, Family, ANCESTORY_KEY_FAM, ANCESTORY_KEY_USR
+from app_models import make_User, User, Family, ANCESTORY_KEY_FAM, ANCESTORY_KEY_USR, Comment
 import json
+
 
 the_jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -68,7 +69,7 @@ class LoginPage(webapp2.RequestHandler):
         if user:
             nickname = user.nickname()
             logout_url = users.create_logout_url('/')
-            self.response.write('Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url))
+            self.response.write('Welcome, {}! (<a href="{}">sign out</a>)(<a href="{}">search</a>)'.format(nickname, logout_url, '/search'))
         else:
             login_url = users.create_login_url('/search')
             self.redirect(login_url)
@@ -116,7 +117,17 @@ class FamilyPage(webapp2.RequestHandler):
                     user.put()
                 
                 user_family_ratings = json.dumps(user_family_ratings)
-                self.response.write(family_page_template.render({'family_id': family_id, 'name':family.name, 'state':family.state, 'city':family.city, 'family_image':'/images/families/'+ family.house_image, 'house_image':'/images/houses/'+ family.house_image, 'ratings':ratings, 'user_ratings':user_family_ratings}))
+                self.response.write(family_page_template.render({
+                    'family_id': family_id, 
+                    'name':family.name, 
+                    'state':family.state, 
+                    'city':family.city, 
+                    'family_image':'/images/families/'+ family.house_image, 
+                    'house_image':'/images/houses/'+ family.house_image, 
+                    'ratings':ratings, 
+                    'user_ratings':user_family_ratings,
+                    'comments':family.comments,
+                }))
                 return
 
             self.redirect('/search')
@@ -226,13 +237,35 @@ class UpdateHandler(webapp2.RequestHandler):
                 family.ratings = json.dumps(family_ratings)
                 family.put()    
                 
+class CommentHandler(webapp2.RequestHandler):
+    def post(self):
+        family_id = self.request.get('family_id')
+        content = self.request.get('content')
 
+        family = ndb.Key(urlsafe=family_id).get()
+        if family:
+            if len(content) > 0:
+                new_comment = Comment(content=content)
+                family.comments.insert(0, new_comment)
+                family.put()
+
+class GetData(webapp2.RequestHandler):
+    def post(self):
+        family_id = self.request.get('family_id')
+        data_type = self.request.get('type')
+
+        family = ndb.Key(urlsafe=family_id).get()
+        if family:
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(json.dumps(family.ratings))
 
 app = webapp2.WSGIApplication([
     ('/', LoginPage),
     ('/search', MainPage),
-    ('/load', Load),
     ('/family', FamilyPage),
     ('/input', InputHandler),
-    ('/update', UpdateHandler)
+    ('/update', UpdateHandler),
+    ('/comment', CommentHandler),
+    ('/load', Load),
+    ('/get_data', GetData)
 ], debug=True)

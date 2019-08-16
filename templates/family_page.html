@@ -18,6 +18,7 @@
     <img class='image family_image' src={{family_image}} onerror="this.src='/images/question_mark.png'" >
     <div class='family_page_name'>{{name}} Family</div>
     <div class='family_location'>{{city}}, {{state}}</div>
+    <div id='family_rating'>4.0</div>
     <hr class='ratings_upper_divider'>
     <div class='vl'></div>
     <div class='ratings_container'>
@@ -109,7 +110,11 @@
     <div class='comments_header'>Comments</div>
     <div class='comments_section'>
       <div class='comments_container' id='comments_container'>
-
+        {% for comment in comments %}
+            <div class="comment">
+                {{comment.content}}
+            </div>
+        {% endfor %}
       </div>
       <input class="comments_input" id='comments_input' type="text" placeholder="Enter Your Comment">
       <input class="comments_submit" id='comments_submit' type="submit" value='Post'>
